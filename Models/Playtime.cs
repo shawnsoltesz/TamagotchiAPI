@@ -2,7 +2,7 @@ using System;
 
 namespace TamagotchiAPI.Models
 {
-    public class Scoldings
+    public class Playtime
     {
         public int Id { get; set; }
         public DateTime When { get; set; }
