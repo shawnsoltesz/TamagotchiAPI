@@ -170,6 +170,8 @@ namespace TamagotchiAPI.Controllers
 
         {
             var feeding = new Feeding();
+            //pet.HappinessLevel = -5;
+            //pet.HungerLevel = +3;
 
             // First, let's find the pet (by using the ID)
             var findPet = await _context.Pets.FindAsync(id);
@@ -181,14 +183,17 @@ namespace TamagotchiAPI.Controllers
                 return NotFound();
             }
 
-            // Associate the feeding to the given pet.
+
+
+            // Associate the feeding to the given pet, hunger level and happiness level.
             feeding.PetId = findPet.Id;
+
 
             // Add the feeding to the database
             _context.Feedings.Add(feeding);
             await _context.SaveChangesAsync();
 
-            // Return the new player to the response of the API
+            // Return the new feeding to the response of the API
             return Ok(feeding);
         }
 
@@ -209,11 +214,14 @@ namespace TamagotchiAPI.Controllers
                 return NotFound();
             }
 
-            // Associate the feeding to the given pet.
+            // Associate the playtime to the given pet.
+            pet.HungerLevel = +5;
+            pet.HappinessLevel = +3;
             playtime.PetId = findPet.Id;
 
             // Add the feeding to the database
             _context.Playtimes.Add(playtime);
+            //_context.Pets.Update(pet);
             await _context.SaveChangesAsync();
 
             // Return the new player to the response of the API
@@ -237,14 +245,16 @@ namespace TamagotchiAPI.Controllers
                 return NotFound();
             }
 
-            // Associate the feeding to the given pet.
+            // Associate the scolding to the given pet.
+            pet.HappinessLevel = -5;
             scolding.PetId = findPet.Id;
 
-            // Add the feeding to the database
-            _context.Playtimes.Add(scolding);
+            // Add the scolding and happiness to the database
+            _context.Scoldings.Add(scolding);
+            _context.Pets.Update(pet);
             await _context.SaveChangesAsync();
 
-            // Return the new player to the response of the API
+            // Return the response of the API
             return Ok(scolding);
         }
 
