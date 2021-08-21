@@ -16,6 +16,8 @@ namespace TamagotchiAPI.Controllers
     [ApiController]
     public class PetsController : ControllerBase
     {
+
+
         // This is the variable you use to have access to your database
         private readonly DatabaseContext _context;
 
@@ -165,11 +167,14 @@ namespace TamagotchiAPI.Controllers
         }
 
 
-        [HttpPost("{id}/Feedings")]
+        [HttpPost("/pet/{id}/Feedings")]
         public async Task<ActionResult<Feeding>> CreateFeedingForPet(int id, Pet pet)
 
         {
             var feeding = new Feeding();
+
+            feeding.When = DateTime.Now;
+
             //pet.HappinessLevel = -5;
             //pet.HungerLevel = +3;
 
@@ -186,7 +191,10 @@ namespace TamagotchiAPI.Controllers
 
 
             // Associate the feeding to the given pet, hunger level and happiness level.
+
+
             feeding.PetId = findPet.Id;
+
 
 
             // Add the feeding to the database
@@ -197,13 +205,15 @@ namespace TamagotchiAPI.Controllers
             return Ok(feeding);
         }
 
-        [HttpPost("{id}/Playtimes")]
+        [HttpPost("/pet/{id}/Playtimes")]
         public async Task<ActionResult<Playtime>> CreatePlaytimeForPet(int id, Pet pet)
 
         {
 
             // First, let's find the pet (by using the ID)
             var playtime = new Playtime();
+
+            playtime.When = DateTime.Now;
 
             var findPet = await _context.Pets.FindAsync(id);
 
@@ -228,13 +238,15 @@ namespace TamagotchiAPI.Controllers
             return Ok(playtime);
         }
 
-        [HttpPost("{id}/Scoldings")]
+        [HttpPost("/pet/{id}/Scoldings")]
         public async Task<ActionResult<Playtime>> CreateScoldingForPet(int id, Pet pet)
 
         {
 
             // First, let's find the pet (by using the ID)
             var scolding = new Scolding();
+
+            scolding.When = DateTime.Now;
 
             var findPet = await _context.Pets.FindAsync(id);
 
