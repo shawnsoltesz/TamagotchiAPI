@@ -167,7 +167,7 @@ namespace TamagotchiAPI.Controllers
         }
 
 
-        [HttpPost("/pet/{id}/Feedings")]
+        [HttpPost("{id}/Feedings")]
         public async Task<ActionResult<Feeding>> CreateFeedingForPet(int id, Pet pet)
 
         {
@@ -205,7 +205,7 @@ namespace TamagotchiAPI.Controllers
             return Ok(feeding);
         }
 
-        [HttpPost("/pet/{id}/Playtimes")]
+        [HttpPost("{id}/Playtimes")]
         public async Task<ActionResult<Playtime>> CreatePlaytimeForPet(int id, Pet pet)
 
         {
@@ -238,7 +238,7 @@ namespace TamagotchiAPI.Controllers
             return Ok(playtime);
         }
 
-        [HttpPost("/pet/{id}/Scoldings")]
+        [HttpPost("{id}/Scoldings")]
         public async Task<ActionResult<Playtime>> CreateScoldingForPet(int id, Pet pet)
 
         {
@@ -258,12 +258,10 @@ namespace TamagotchiAPI.Controllers
             }
 
             // Associate the scolding to the given pet.
-            pet.HappinessLevel = -5;
             scolding.PetId = findPet.Id;
 
             // Add the scolding and happiness to the database
             _context.Scoldings.Add(scolding);
-            _context.Pets.Update(pet);
             await _context.SaveChangesAsync();
 
             // Return the response of the API

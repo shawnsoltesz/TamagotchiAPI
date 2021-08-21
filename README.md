@@ -97,6 +97,24 @@ DELETE api/pets/{id} deletes the pet with the corresponding {id} number from the
 
 **POST /pets/{id}/playtimes should find the pet by id and add five to its happiness level and add three to its hunger level. It should also create a new Playtime for this pet and the current time.**
 
-**POST /pets/{id}/feedings should find the pet by id and subtract five from its hungry level and add three to its happiness level. It should also create a new Feeding for this pet and the current time.**
+Receive pet {Id} through Playtimes API
+Verify, and if != valid -> return error
+If == valid ->
 
-**POST /pets/{id}/scoldings should find the pet by id and subtract five from its happiness level. It should also create a new Scolding for this pet and the current time.**
+Add 5 to the HappinessLevel field on the Pet Model
+
+- We need to get the current value of the HappinessLevel field for the pet {Id}
+- Add 5 to HappinessLevel field on the Pets.pet table
+
+Add 3 to the HungerLevel field on the Pet Model
+
+- We need to get the current value of the HappinessLevel field for the pet {Id}
+- Add 5 to HungerLevel field on the Pets.pet table
+
+Return the new values to the HappinessLevel and HungerLevel fields on the Pets table
+
+Record the date of the playtime on the Playtime.When table/field
+
+- **POST /pets/{id}/feedings should find the pet by id and subtract five from its hungry level and add three to its happiness level. It should also create a new Feeding for this pet and the current time.**
+
+  **POST /pets/{id}/scoldings should find the pet by id and subtract five from its happiness level. It should also create a new Scolding for this pet and the current time.**
