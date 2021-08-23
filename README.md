@@ -103,18 +103,58 @@ If == valid ->
 
 Add 5 to the HappinessLevel field on the Pet Model
 
-- We need to get the current value of the HappinessLevel field for the pet {Id}
-- Add 5 to HappinessLevel field on the Pets.pet table
+- We need to get the current value of HappinessLevel field for the pet {Id}
+- Add 5 to HappinessLevel
+- Return value to the Pet table
 
 Add 3 to the HungerLevel field on the Pet Model
 
-- We need to get the current value of the HappinessLevel field for the pet {Id}
-- Add 5 to HungerLevel field on the Pets.pet table
-
-Return the new values to the HappinessLevel and HungerLevel fields on the Pets table
+- We need to get the current value of HungerLevel field for the pet {Id}
+- Add 3 to HungerLevel
+- Return value to the Pet table
 
 Record the date of the playtime on the Playtime.When table/field
 
 - **POST /pets/{id}/feedings should find the pet by id and subtract five from its hungry level and add three to its happiness level. It should also create a new Feeding for this pet and the current time.**
 
-  **POST /pets/{id}/scoldings should find the pet by id and subtract five from its happiness level. It should also create a new Scolding for this pet and the current time.**
+Receive pet {Id} through Feedings API
+Verify, and if != valid -> return error
+If == valid ->
+
+Subtract 5 from HungerLevel field on the Pet Model
+
+- We need to get the current value of HungerLevel field for the pet {Id}
+- Subtract 5 from HungerLevel
+- Return value to the Pet table
+
+Add 3 to the HappinessLevel field on the Pet Model
+
+- We need to get the current value of the HappinessLevel field for the pet {Id}
+- Add 3 to HappinessLevel
+- Return value to the Pet table
+
+Record the date of the feeding on the Feeding.When table/field
+
+**POST /pets/{id}/scoldings should find the pet by id and subtract five from its happiness level. It should also create a new Scolding for this pet and the current time.**
+
+Or should these be a LINQ string?
+
+Data -
+
+Scoldings - find pet by Id (Scoldings model)
+HappinessLevel - subtract 5 (Pets model)
+Scolding - insert date of scolding (Scoldings model)
+Create new Scolding (Scoldings model)
+
+Algorithm -
+
+search the PetId on the Scolding table
+If no match, return error
+If match:
+Select PetID on Scoldings table.
+Join with pet table to access Pet.HappinessLevel value
+Obtain HappinessLevel value
+Compute subtracting 5 from value
+Insert new value into HappinessLevel
+Insert date onto Scoldings table
+Add changes to database

@@ -175,9 +175,6 @@ namespace TamagotchiAPI.Controllers
 
             feeding.When = DateTime.Now;
 
-            //pet.HappinessLevel = -5;
-            //pet.HungerLevel = +3;
-
             // First, let's find the pet (by using the ID)
             var findPet = await _context.Pets.FindAsync(id);
 
@@ -195,10 +192,20 @@ namespace TamagotchiAPI.Controllers
 
             feeding.PetId = findPet.Id;
 
+            //Update the Happiness Level
+
+            var currentHappinessLevel = pet.HappinessLevel;
+            var feedingHappiness = currentHappinessLevel + 3;
+            pet.HappinessLevel = feedingHappiness;
+
+            var currentHungerLevel = pet.HungerLevel;
+            var feedingHunger = currentHungerLevel - 5;
+            pet.HungerLevel = feedingHunger;
 
 
             // Add the feeding to the database
             _context.Feedings.Add(feeding);
+            _context.Pets.Add(pet);
             await _context.SaveChangesAsync();
 
             // Return the new feeding to the response of the API
